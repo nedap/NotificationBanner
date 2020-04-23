@@ -54,7 +54,7 @@ open class NotificationBanner: BaseNotificationBanner {
             let size = (leftView.frame.height > 0) ? min(44, leftView.frame.height) : 44
             
             leftView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+                make.centerY.equalToSuperview()
                 make.left.equalToSuperview().offset(10)
                 make.size.equalTo(size)
             })
@@ -65,7 +65,7 @@ open class NotificationBanner: BaseNotificationBanner {
             
             let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
             rightView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+                make.centerY.equalToSuperview()
                 make.left.equalToSuperview().offset(10)
                 make.size.equalTo(size)
             })
@@ -118,7 +118,7 @@ open class NotificationBanner: BaseNotificationBanner {
         }
         
         labelsView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+            make.centerY.equalToSuperview()
             
             if let leftView = leftView {
                 make.left.equalTo(leftView.snp.right).offset(padding)

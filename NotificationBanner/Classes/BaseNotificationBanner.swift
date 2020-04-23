@@ -58,10 +58,22 @@ open class BaseNotificationBanner: UIView {
             if let customBannerHeight = customBannerHeight {
                 return customBannerHeight
             } else {
-                return shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0 + heightAdjustment
+                return basicHeight()
             }
         } set {
             customBannerHeight = newValue
+        }
+    }
+
+    public var bannerWidth: CGFloat {
+        get {
+            if let customBannerWidth = customBannerWidth {
+                return customBannerWidth
+            } else {
+                return ((parentViewController != nil) ? parentViewController?.view.frame.width : appWindow?.width) ?? 0
+            }
+        } set {
+            customBannerWidth = newValue
         }
     }
 
@@ -145,11 +157,19 @@ open class BaseNotificationBanner: UIView {
     /// If this is not nil, then this height will be used instead of the auto calculated height
     internal var customBannerHeight: CGFloat?
 
+    /// If this is not nil, then this width will be used instead of the auto calculated width
+    internal var customBannerWidth: CGFloat?
+
+    /// Y offset for current banner position on its parent view
+    internal var basicYOffset: CGFloat {
+        return NotificationBannerUtilities.yOffset(for: bannerPosition, on: parentViewController?.view ?? appWindow)
+    }
+
     /// Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
     var isSuspended: Bool = false
 
     /// The main window of the application which banner views are placed on
-    private let appWindow: UIWindow? = {
+    internal let appWindow: UIWindow? = {
         if #available(iOS 13.0, *) {
             return UIApplication.shared.connectedScenes
                 .first { $0.activationState == .foregroundActive }
@@ -268,9 +288,7 @@ open class BaseNotificationBanner: UIView {
     }
 
     internal func spacerViewHeight() -> CGFloat {
-        return NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
+        return basicYOffset + 10
     }
 
     private func finishBannerYOffset() -> CGFloat {
@@ -286,9 +304,8 @@ open class BaseNotificationBanner: UIView {
     }
     
     internal func updateBannerPositionFrames() {
-        guard let window = appWindow else { return }
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.width,
+                                                  bannerWidth: bannerWidth,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   finishYOffset: finishBannerYOffset(),
@@ -435,19 +452,6 @@ open class BaseNotificationBanner: UIView {
              self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
         }
     }
-    
-    /**
-        The height adjustment needed in order for the banner to look properly displayed.
-     */
-    internal var heightAdjustment: CGFloat {
-        // iOS 13 does not allow covering the status bar on non-notch iPhones
-        // The banner needs to be moved further down under the status bar in this case
-        guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
-            return 0
-        }
-
-        return UIApplication.shared.statusBarFrame.height
-    }
 
     /**
         Update banner height, it's necessary after banner labels font update
@@ -460,20 +464,20 @@ open class BaseNotificationBanner: UIView {
         Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
-        guard let window = appWindow else { return }
+        let parentHeight = (parentViewController?.view.frame.height ?? appWindow?.height) ?? 0
 
         updateSpacerViewHeight()
 
         let edgeInsets = bannerEdgeInsets ?? .zero
 
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (parentHeight - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: window.width - edgeInsets.left - edgeInsets.right,
+                       width: bannerWidth - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
 
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.width,
+                                                  bannerWidth: bannerWidth,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   finishYOffset: finishBannerYOffset(),
@@ -580,14 +584,13 @@ open class BaseNotificationBanner: UIView {
     }
 
     /**
-         Determines wether or not we should adjust the banner for notch featured iPhone
+        Basic height that is used unless a custom height is provided
      */
 
-    internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
-        return NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
+    internal func basicHeight() -> CGFloat {
+        return 64.0 + basicYOffset
     }
+
     /**
         Updates the scrolling marquee label duration
     */

@@ -20,16 +20,38 @@ import UIKit
 
 class NotificationBannerUtilities: NSObject {
 
-    class func isNotchFeaturedIPhone() -> Bool {
-        if #available(iOS 11, *) {
-            if UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > CGFloat(0) {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
+    /// The y offset taken from safe area `top` or `bottom` depending on the position of the banner
+    /// - parameters:
+    ///     - bannerPosition: the position where the banner gets displayed (top or bottom)
+    ///     - parentView: the view from which these isents should be taken, effectively a parent view on which the banner gets displayed
+    class func yOffset(for bannerPosition: BannerPosition, on parentView: UIView?) -> CGFloat {
+
+        let safeAreaInsets = NotificationBannerUtilities.safeAreaInsets(for: parentView ?? UIApplication.shared.keyWindow)
+
+        switch bannerPosition {
+        case .top:
+            return safeAreaInsets.top
+        case .bottom:
+            return safeAreaInsets.bottom
+        @unknown default:
+            return 0
         }
     }
-    
+
+    /// Safe area insets of the view
+    /// - parameters:
+    ///     - view: the view from which these isents should be taken
+    class func safeAreaInsets(for view: UIView?) -> UIEdgeInsets {
+        // No safe area before ios 11 -> insets .zero
+        guard #available(iOS 11, *) else {
+            return .zero
+        }
+
+        // No view -> insets .zero
+        guard let view = view else {
+            return .zero
+        }
+
+        return view.safeAreaInsets
+    }
 }

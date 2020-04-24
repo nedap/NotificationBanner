@@ -33,9 +33,12 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 return customBannerHeight
             } else {
                 // Calculate the height based on contents of labels
+
+                // Get edge insets, if some (e.g. floating banner has some)
+                let edgeInsets = (bannerEdgeInsets ?? .zero).left + (bannerEdgeInsets ?? .zero).right
                 
                 // Determine available width for displaying the label
-                var boundingWidth = (parentViewController?.view.bounds.width ?? UIScreen.main.bounds.width) - padding * 2
+                var boundingWidth = bannerWidth - padding * 2 - edgeInsets
                 
                 // Substract safeAreaInsets from width, if available
                 let safeAreaInsets = NotificationBannerUtilities.safeAreaInsets(for: parentViewController?.view ?? appWindow)
@@ -60,15 +63,15 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                            height: .greatestFiniteMagnitude)).height ?? 0.0)
                 
                 let topOffset: CGFloat = verticalSpacing + basicYOffset
-                let minHeight: CGFloat = 64.0 + basicYOffset
+                let bottomOffset: CGFloat = verticalSpacing
                 
-                var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
+                var actualBannerHeight = topOffset + titleHeight + subtitleHeight + bottomOffset
                 
                 if !subtitleHeight.isZero && !titleHeight.isZero {
                     actualBannerHeight += innerSpacing
                 }
                 
-                return max(actualBannerHeight, minHeight)
+                return max(actualBannerHeight, basicHeight())
             }
         } set {
             customBannerHeight = newValue
@@ -171,8 +174,9 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 make.left.equalToSuperview().offset(padding)
                 make.right.equalToSuperview().offset(-padding)
             }
-            
-            make.centerY.equalToSuperview()
+
+            make.top.equalToSuperview().offset(verticalSpacing)
+            make.bottom.equalToSuperview().offset(-verticalSpacing)
         }
     }
     

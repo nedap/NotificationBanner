@@ -148,6 +148,11 @@ open class BaseNotificationBanner: UIView {
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
 
+    /// The default height of the banner
+    internal var bannerDefaultHeight: CGFloat {
+        return 64.0
+    }
+
     /// The maximum number of banners simultaneously visible on screen
     internal var maximumVisibleBanners: Int = 1
 
@@ -293,7 +298,7 @@ open class BaseNotificationBanner: UIView {
     }
 
     internal func spacerViewHeight() -> CGFloat {
-        return basicYOffset + 10
+        return spacerViewDefaultOffset + basicYOffset
     }
 
     private func finishBannerYOffset() -> CGFloat {
@@ -688,7 +693,7 @@ open class BaseNotificationBanner: UIView {
      */
 
     internal func basicHeight() -> CGFloat {
-        return 64.0 + basicYOffset
+        return bannerDefaultHeight + basicYOffset
     }
 
     /**

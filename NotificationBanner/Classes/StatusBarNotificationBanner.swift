@@ -23,6 +23,10 @@ import MarqueeLabel
 @objcMembers
 open class StatusBarNotificationBanner: BaseNotificationBanner {
 
+    override internal var bannerDefaultHeight: CGFloat {
+        return 20.0
+    }
+
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(style: style, colors: colors)
 
@@ -76,10 +80,6 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-    override func basicHeight() -> CGFloat {
-        return 20.0 + basicYOffset
     }
 }
 

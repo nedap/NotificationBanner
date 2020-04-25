@@ -33,17 +33,18 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 return customBannerHeight
             } else {
                 // Calculate the height based on contents of labels
+
+                // Get edge insets, if some (e.g. floating banner has some)
+                let edgeInsets = (bannerEdgeInsets ?? .zero).left + (bannerEdgeInsets ?? .zero).right
                 
                 // Determine available width for displaying the label
-                var boundingWidth = UIScreen.main.bounds.width - padding * 2
+                var boundingWidth = bannerWidth - padding * 2 - edgeInsets
                 
                 // Substract safeAreaInsets from width, if available
-                // We have to use keyWindow to ask for safeAreaInsets as `self` only knows its' safeAreaInsets in layoutSubviews
-                if #available(iOS 11.0, *), let keyWindow = UIApplication.shared.keyWindow {
-                    let safeAreaOffset = keyWindow.safeAreaInsets.left + keyWindow.safeAreaInsets.right
-                    
-                    boundingWidth -= safeAreaOffset
-                }
+                let safeAreaInsets = NotificationBannerUtilities.safeAreaInsets(for: parentViewController?.view ?? appWindow)
+                let safeAreaOffset = safeAreaInsets.left + safeAreaInsets.right
+
+                boundingWidth -= safeAreaOffset
                 
                 if leftView != nil {
                     boundingWidth -= sideViewSize + padding
@@ -61,16 +62,16 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                     CGSize(width: boundingWidth,
                            height: .greatestFiniteMagnitude)).height ?? 0.0)
                 
-                let topOffset: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : verticalSpacing
-                let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
+                let topOffset: CGFloat = verticalSpacing + basicYOffset
+                let bottomOffset: CGFloat = verticalSpacing
                 
-                var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
+                var actualBannerHeight = topOffset + titleHeight + subtitleHeight + bottomOffset
                 
                 if !subtitleHeight.isZero && !titleHeight.isZero {
                     actualBannerHeight += innerSpacing
                 }
                 
-                return heightAdjustment + max(actualBannerHeight, minHeight)
+                return max(actualBannerHeight, basicHeight())
             }
         } set {
             customBannerHeight = newValue
@@ -173,17 +174,14 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 make.left.equalToSuperview().offset(padding)
                 make.right.equalToSuperview().offset(-padding)
             }
-            
-            make.centerY.equalToSuperview()
+
+            make.top.equalToSuperview().offset(verticalSpacing)
+            make.bottom.equalToSuperview().offset(-verticalSpacing)
         }
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func spacerViewHeight() -> CGFloat {
-        return super.spacerViewHeight() + heightAdjustment
     }
 }
 

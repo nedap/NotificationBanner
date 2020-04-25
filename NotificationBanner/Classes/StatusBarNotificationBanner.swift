@@ -23,18 +23,8 @@ import MarqueeLabel
 @objcMembers
 open class StatusBarNotificationBanner: BaseNotificationBanner {
 
-    public override var bannerHeight: CGFloat {
-        get {
-            if let customBannerHeight = customBannerHeight {
-                return customBannerHeight
-            } else if shouldAdjustForNotchFeaturedIphone() {
-                return 50.0
-            } else {
-                return 20.0 + heightAdjustment
-            }
-        } set {
-            customBannerHeight = newValue
-        }
+    override internal var bannerDefaultHeight: CGFloat {
+        return 20.0
     }
 
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
@@ -49,7 +39,7 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         contentView.addSubview(titleLabel!)
 
         titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(heightAdjustment)
+            make.top.equalToSuperview()
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
             make.bottom.equalToSuperview()
@@ -87,7 +77,6 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
 }
 
 public extension StatusBarNotificationBanner {

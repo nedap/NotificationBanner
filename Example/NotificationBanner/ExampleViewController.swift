@@ -57,6 +57,11 @@ extension ExampleViewController: NotificationBannerDelegate {
 }
 
 extension ExampleViewController: ExampleViewDelegate {
+
+    internal func isModal() -> Bool {
+
+        return isModal
+    }
     
     internal func basicNotificationCellSelected(at index: Int) {
         switch index {
@@ -74,8 +79,8 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.onSwipeUp = {
                 self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
             }
-            
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 1:
             // Basic Danger Notification
             let banner = NotificationBanner(title: "Basic Danger Notification",
@@ -87,7 +92,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 self.showAlert(title: "Basic Danger Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 2:
             //Basic Info Notification
             let banner = NotificationBanner(title: "Basic Info Notification",
@@ -99,7 +104,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 self.showAlert(title: "Basic Info Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 3:
             // Basic Warning Notification
             let banner = NotificationBanner(title: "Basic Warning Notification",
@@ -111,7 +116,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 self.showAlert(title: "Banner Warning Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 4:
             // Basic Warning Notification with Custom Color
             let banner = NotificationBanner(title: "Custom Warning Notification",
@@ -143,7 +148,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 banner.dismiss()
             }
             
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 6:
             // Growing Notification
             let banner = GrowingNotificationBanner(
@@ -164,7 +169,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
             }
 
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         default:
             return
         }
@@ -178,20 +183,20 @@ extension ExampleViewController: ExampleViewDelegate {
             let banner = NotificationBanner(title: "Success Notification", subtitle: "This notification has a left view!", leftView: leftView, style: .success)
             banner.delegate = self
 
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 1:
             // Danger Notification with Right View
             let rightView = UIImageView(image: #imageLiteral(resourceName: "danger"))
             let banner = NotificationBanner(title: "Danger Notification", subtitle: "This notification has a right view!", rightView: rightView, style: .danger)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 2:
             // Info Notification with Left and Right Views
             let leftView = UIImageView(image: #imageLiteral(resourceName: "info"))
             let rightView = UIImageView(image: #imageLiteral(resourceName: "right_chevron"))
             let banner = NotificationBanner(title: "Info Notification", subtitle: "This notification has two side views!", leftView: leftView, rightView: rightView, style: .info)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         default:
             return
         }
@@ -203,7 +208,7 @@ extension ExampleViewController: ExampleViewDelegate {
             // Tarheels Completely Custom Notification
             let banner = NotificationBanner(customView: NorthCarolinaBannerView())
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         default:
             return
         }
@@ -215,12 +220,12 @@ extension ExampleViewController: ExampleViewDelegate {
             let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
             let banner = GrowingNotificationBanner(title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", subtitle: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", leftView: leftView, style: .success)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         default:
             let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
             let banner = GrowingNotificationBanner(title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", subtitle: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", leftView: leftView, style: .danger, sideViewSize: 48)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         }
     }
     
@@ -234,15 +239,17 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
+                        on: isModal ? self : nil,
                         cornerRadius: 10,
                         shadowBlurRadius: 15)
         case 1:
             let banner = FloatingNotificationBanner(title: "Danger Notification",
-                                                    subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines.",
+                                                    subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines. This type of banner floats and has the capability of growing to an infinite amount of lines.",
                                                     style: .danger)
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
+                        on: isModal ? self : nil,
                         cornerRadius: 10)
         case 2:
             let banner = FloatingNotificationBanner(title: "Info Notification",
@@ -252,6 +259,7 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.transparency = 0.75
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
+                        on: isModal ? self : nil,
                         cornerRadius: 10)
         default:
             let banner = FloatingNotificationBanner(customView: NorthCarolinaBannerView())
@@ -259,6 +267,7 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.transparency = 0.75
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
+                        on: isModal ? self : nil,
                         cornerRadius: 10,
                         shadowBlurRadius: 15)
         }
@@ -271,6 +280,7 @@ extension ExampleViewController: ExampleViewDelegate {
             banners.forEach { banner in
                 banner.show(bannerPosition: selectedBannerPosition(),
                             queue: notificationBannerQueue,
+                            on: isModal ? self : nil,
                             cornerRadius: 8,
                             shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
                             shadowBlurRadius: 16,
@@ -358,23 +368,24 @@ extension ExampleViewController: ExampleViewDelegate {
             // Status Bar Success Notification
             let banner = StatusBarNotificationBanner(title: "Success Status Bar Notification", style: .success)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 1:
             // Status Bar Danger Notification
             let banner = StatusBarNotificationBanner(title: "Danger Status Bar Notification", style: .danger)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 2:
             // Status Bar Info Notification
             let banner = StatusBarNotificationBanner(title: "Info Status Bar Notification", style: .info)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         case 3:
             // Status Bar Warning Notification
             let banner = StatusBarNotificationBanner(title: "Warning Status Bar Notification", style: .warning)
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(),
-                        bannerPosition: selectedBannerPosition())
+                        bannerPosition: selectedBannerPosition(),
+                        on: isModal ? self : nil)
         case 4:
             // Status Bar Custom Warning Notification
             let banner = StatusBarNotificationBanner(title: "Warning Status Bar Notification Warning Status Bar Notification Displayed Under/Over the Navigation/Tab Bar",
@@ -403,10 +414,24 @@ extension ExampleViewController: ExampleViewDelegate {
             let banner = StatusBarNotificationBanner(attributedTitle: attributedTitle)
             banner.backgroundColor = UIColor(red: 0.54, green: 0.40, blue: 0.54, alpha: 1.00)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: isModal ? self : nil)
         default:
             return
         }
+    }
+
+    internal func modalCellSelected() {
+        let viewController = ExampleViewController()
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // For iPad.
+            viewController.modalPresentationStyle = .formSheet
+            viewController.modalTransitionStyle = .crossDissolve
+        }
+
+        viewController.modalPresentationCapturesStatusBarAppearance = true
+
+        present(viewController, animated: true)
     }
     
     internal func numberOfCells(for section: Int) -> Int {
@@ -425,6 +450,8 @@ extension ExampleViewController: ExampleViewDelegate {
             return 3
         case 6:
             return 6
+        case 7:
+            return 1
         default:
             return 0
         }
@@ -446,6 +473,8 @@ extension ExampleViewController: ExampleViewDelegate {
             return "Simultaneous Floating Notification Banners"
         case 6:
             return "Status Bar Notifications"
+        case 7:
+            return "Show modal"
         default:
             return ""
         }
@@ -565,6 +594,8 @@ extension ExampleViewController: ExampleViewDelegate {
             default:
                 return ("", nil)
             }
+        } else if indexPath.section == 7 {
+            return ("Show modal", nil)
         }
         
         return ("", nil)

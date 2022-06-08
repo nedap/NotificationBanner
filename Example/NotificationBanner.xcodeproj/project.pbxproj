@@ -269,7 +269,7 @@
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/RevealServer/RevealServer.framework/RevealServer",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Reveal-SDK/RevealServer.framework/RevealServer",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (

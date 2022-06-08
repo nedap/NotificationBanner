@@ -8,7 +8,8 @@
 
 import UIKit
 
-protocol ExampleViewDelegate : AnyObject {
+protocol ExampleViewDelegate : class {
+    func isModal() -> Bool
     func numberOfCells(for section: Int) -> Int
     func notificationBannerTitle(for section: Int) -> String
     func blockColor(at indexPath: IndexPath) -> UIColor
@@ -21,6 +22,7 @@ protocol ExampleViewDelegate : AnyObject {
     func basicFloatingNotificationCellSelected(at index: Int)
     func basicSimulanteousFloatingNotificationCellSelected(at index: Int)
     func basicStatusBarNotificationCellSelected(at index: Int)
+    func modalCellSelected()
 }
 
 class ExampleView: UIView {
@@ -120,7 +122,11 @@ class ExampleView: UIView {
 extension ExampleView : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        if delegate?.isModal() == true {
+            return 7
+        } else {
+            return 8
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,6 +177,8 @@ extension ExampleView : UITableViewDelegate {
             delegate?.basicSimulanteousFloatingNotificationCellSelected(at: indexPath.row)
         } else if indexPath.section == 6 {
             delegate?.basicStatusBarNotificationCellSelected(at: indexPath.row)
+        } else if indexPath.section == 7 {
+            delegate?.modalCellSelected()
         }
     }
 }

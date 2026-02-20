@@ -3,7 +3,7 @@
 //  NotificationBanner_Example
 //
 //  Created by Yulia Mykhailova on 20/04/2020.
-//  Copyright © 2020 Yulia Mykhailova. All rights reserved.
+//  Copyright © 2026 Yulia Mykhailova. All rights reserved.
 //
 
 import UIKit

@@ -530,7 +530,7 @@ open class BaseNotificationBanner: UIView {
         Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
-        guard let window = appWindow,
+        guard let _ = appWindow,
               currentDeviceOrientationIsSupportedByApp() else { return }
         
         let parentHeight = (parentViewController?.view.frame.height ?? appWindow?.height) ?? 0

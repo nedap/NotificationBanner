@@ -20,17 +20,17 @@ variant_for_slice()
   "RevealServer.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RevealServer.xcframework/tvos-arm64")
-    echo ""
-    ;;
   "RevealServer.xcframework/ios-arm64_i386_x86_64-simulator")
-    echo "simulator"
-    ;;
-  "RevealServer.xcframework/tvos-arm64_x86_64-simulator")
     echo "simulator"
     ;;
   "RevealServer.xcframework/ios-x86_64-maccatalyst")
     echo "maccatalyst"
+    ;;
+  "RevealServer.xcframework/tvos-arm64")
+    echo ""
+    ;;
+  "RevealServer.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   esac
 }
@@ -41,17 +41,17 @@ archs_for_slice()
   "RevealServer.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RevealServer.xcframework/tvos-arm64")
-    echo "arm64"
-    ;;
   "RevealServer.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "arm64 i386 x86_64"
     ;;
-  "RevealServer.xcframework/tvos-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
-    ;;
   "RevealServer.xcframework/ios-x86_64-maccatalyst")
     echo "x86_64"
+    ;;
+  "RevealServer.xcframework/tvos-arm64")
+    echo "arm64"
+    ;;
+  "RevealServer.xcframework/tvos-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
     ;;
   esac
 }

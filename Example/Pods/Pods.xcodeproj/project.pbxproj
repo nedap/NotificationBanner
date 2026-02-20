@@ -1048,21 +1048,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0A369692D9C55BD534AE1D5668673F50 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 907371067182F1522ABE7ED551045F9E /* Reveal-SDK.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		0ED89089E1B7C96B85C1BBF8B1CCF23C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2D3F3DB53C69815D951D52CAA8CBFD7C /* MarqueeLabel.release.xcconfig */;
@@ -1097,22 +1082,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		1DF68EB60855E301927E173B0D66DDA4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FBF521A04AB24BEF98B4551A9C56958 /* Reveal-SDK.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1330,6 +1299,39 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
+		};
+		66A83B3258B10F09251516CC07E11B2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FBF521A04AB24BEF98B4551A9C56958 /* Reveal-SDK.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		70D0AEDC628D96DFE3A913BA81AA7D23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 907371067182F1522ABE7ED551045F9E /* Reveal-SDK.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		725B15D4383FAD3C5BE44ACA64D6AE05 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1652,8 +1654,8 @@
 		D5B79609362A2B2BF9AB32E764FBA688 /* Build configuration list for PBXAggregateTarget "Reveal-SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A369692D9C55BD534AE1D5668673F50 /* Debug */,
-				1DF68EB60855E301927E173B0D66DDA4 /* Release */,
+				70D0AEDC628D96DFE3A913BA81AA7D23 /* Debug */,
+				66A83B3258B10F09251516CC07E11B2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -17,14 +17,14 @@ RSYNC_PROTECT_TMP_FILES=(--filter "P .*.??????")
 variant_for_slice()
 {
   case "$1" in
-  "RevealServer.xcframework/ios-arm64_armv7")
+  "RevealServer.xcframework/ios-arm64")
     echo ""
     ;;
-  "RevealServer.xcframework/ios-arm64_i386_x86_64-simulator")
-    echo "simulator"
-    ;;
-  "RevealServer.xcframework/ios-x86_64-maccatalyst")
+  "RevealServer.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
+    ;;
+  "RevealServer.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   "RevealServer.xcframework/tvos-arm64")
     echo ""
@@ -38,14 +38,14 @@ variant_for_slice()
 archs_for_slice()
 {
   case "$1" in
-  "RevealServer.xcframework/ios-arm64_armv7")
-    echo "arm64 armv7"
+  "RevealServer.xcframework/ios-arm64")
+    echo "arm64"
     ;;
-  "RevealServer.xcframework/ios-arm64_i386_x86_64-simulator")
-    echo "arm64 i386 x86_64"
+  "RevealServer.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "arm64 x86_64"
     ;;
-  "RevealServer.xcframework/ios-x86_64-maccatalyst")
-    echo "x86_64"
+  "RevealServer.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
     ;;
   "RevealServer.xcframework/tvos-arm64")
     echo "arm64"
@@ -135,5 +135,5 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/Reveal-SDK/RevealServer/RevealServer.xcframework" "Reveal-SDK" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator" "ios-x86_64-maccatalyst"
+install_xcframework "${PODS_ROOT}/Reveal-SDK/RevealServer/RevealServer.xcframework" "Reveal-SDK" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
 

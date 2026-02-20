@@ -3,7 +3,7 @@ PODS:
   - NotificationBannerSwift (4.0.0):
     - MarqueeLabel (~> 4.5.3)
     - SnapKit (~> 5.7.1)
-  - Reveal-SDK (27)
+  - Reveal-SDK (46)
   - SnapKit (5.7.1)
 
 DEPENDENCIES:
@@ -21,9 +21,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MarqueeLabel: be4667862c3f9555173db215055e8fec327c7659
-  NotificationBannerSwift: 2b1ead2d62887dd3be02188e03cc82cf6fc7edf5
-  Reveal-SDK: 306e2880395ee396f5a8b4c485c3a86dd19866c7
+  MarqueeLabel: 0c57d4c6634e04a6d015af79f7c9a175b2309525
+  NotificationBannerSwift: ac0dd09d6eaf091b43a36c7b5a93802103a763ef
+  Reveal-SDK: 37efb038b3e9ef54cf16e18f90be22a32a9c708a
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
 PODFILE CHECKSUM: f63f308616dab4e665e62e766054418988f9c881

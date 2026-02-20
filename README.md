@@ -2,9 +2,7 @@
 
 [![GitHub contributors](https://img.shields.io/github/contributors/daltron/notificationbanner.svg?style=flat)]() 
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
-
-⚠️ THIS FORKED REPOSITORY CONTAINS CUSTOM CHANGES FROM v3.1.0 NOT AVAILABLE ON UPSTREAM BECAUSE THE PROJECT IS NOT ACTIVATELY MANTAINING ANYMORE.⚠️
-‼️ CHANGES FROM UPSTREAM MUST BE MANUALLY CHERRY-PICKED INTO THIS REPOSITORY ‼️
+[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/donate/?hosted_button_id=QEBVNMTVX6N88)  
 
 ## Written in Swift 5
 
@@ -33,23 +31,14 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Built in banner queue ✅
 - Allow to display several banners simultaneously, configurable in banners queue ✅
 - Accessibility support ✅
+- Dynamic Island Support ✅
 
 ## Requirements
 
- - iOS 11.0+
+ - iOS 12.0+
  - Xcode 10.0+
 
 ## Installation
-
-### Swift Package Manager
-
-This is the preferred way. All other installation methods are officially deprecated and will no longer be supported in future versions.
-
-1. Go to File > Add Packages
-2. The Add Package dialog appears, by default with Apple packages. 
-3. In the upper right hand corner, paste https://github.com/Daltron/NotificationBanner into the search bar
-4. Hit Return to kick off the search
-5. Click Add Package. 
 
 ### CocoaPods
 
@@ -93,6 +82,16 @@ github "Daltron/NotificationBanner" "master"
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabel.framework` in your project.
+
+### Swift Package Manager
+
+You can also add this library as swift package manager.
+
+1. Go to File > Add Packages
+2. The Add Package dialog appears, by default with Apple packages. 
+3. In the upper right hand corner, paste https://github.com/Daltron/NotificationBanner into the search bar
+4. Hit Return to kick off the search
+5. Click Add Package. 
 
 ## Usage
 
@@ -170,11 +169,11 @@ class CustomBannerColors: BannerColorsProtocol {
 
     internal func color(for style: BannerStyle) -> UIColor {
         switch style {
-            case .danger:    // Your custom .danger color
-            case .info:        // Your custom .info color
-            case .customView:    // Your custom .customView color
-            case .success:    // Your custom .success color
-            case .warning:    // Your custom .warning color
+            case .danger:	// Your custom .danger color
+            case .info:		// Your custom .info color
+            case .customView:	// Your custom .customView color
+            case .success:	// Your custom .success color
+            case .warning:	// Your custom .warning color
         }
     }
 
@@ -232,13 +231,13 @@ By default, when a banner is tapped or swiped up by a user, it will be dismissed
 
 ```swift
 banner.onTap = {
-    // Do something regarding the banner
+	// Do something regarding the banner
 }
 ```
 
 ```swift
 banner.onSwipeUp = {
-    // Do something regarding the banner
+	// Do something regarding the banner
 }
 ```
 
@@ -263,10 +262,10 @@ By default, when a banner is displayed, a haptic feedback will be generated on d
 
 ```swift
 public enum BannerHaptic {
-    case light
-       case medium
-    case heavy
-      case none
+	case light
+   	case medium
+	case heavy
+  	case none
 }
 ```
 
@@ -312,37 +311,37 @@ Create five different banners:
 
 ```swift
 let banner1 = FloatingNotificationBanner(
-    title: "Success Notification - 1",
-    subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
-    style: .success
+	title: "Success Notification - 1",
+	subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .success
 )
 banner1.delegate = self
 
 let banner2 = FloatingNotificationBanner(
-    title: "Danger Notification - 2",
-    subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
-    style: .danger
+	title: "Danger Notification - 2",
+	subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .danger
 )
 banner2.delegate = self
 
 let banner3 = FloatingNotificationBanner(
-    title: "Info Notification - 3",
-    subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
-    style: .info
+	title: "Info Notification - 3",
+	subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .info
 )
 banner3.delegate = self
 
 let banner4 = FloatingNotificationBanner(
-    title: "Success Notification - 4",
-    subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
-    style: .success
+	title: "Success Notification - 4",
+	subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .success
 )
 banner4.delegate = self
 
 let banner5 = FloatingNotificationBanner(
-    title: "Info Notification - 5",
-    subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
-    style: .info
+	title: "Info Notification - 5",
+	subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .info
 )
 banner5.delegate = self
 ```
@@ -350,8 +349,8 @@ banner5.delegate = self
 and show all five banners at once:
 ```swift
 showBanners(
-    [banner1, banner2, banner3, banner4, banner5],
-    in: bannerQueue5AllowedMixed
+	[banner1, banner2, banner3, banner4, banner5],
+	in: bannerQueue5AllowedMixed
 )
 ```
 
@@ -359,18 +358,18 @@ using this supporting method
 
 ```swift
 func showBanners(
-    _ banners: [FloatingNotificationBanner],
-    in notificationBannerQueue: NotificationBannerQueue
+	_ banners: [FloatingNotificationBanner],
+	in notificationBannerQueue: NotificationBannerQueue
 ) {
     banners.forEach { banner in
-          banner.show(
-              bannerPosition: selectedBannerPosition(),
-             queue: notificationBannerQueue,
-             cornerRadius: 8,
-            shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
-              shadowBlurRadius: 16,
-            shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
-       )
+      	banner.show(
+	      	bannerPosition: selectedBannerPosition(),
+		 	queue: notificationBannerQueue,
+		 	cornerRadius: 8,
+			shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
+		  	shadowBlurRadius: 16,
+			shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
+	   )
     }
 }
 ```
@@ -403,4 +402,3 @@ Dalton Hinterscher, daltonhint4@gmail.com
 ## License
 
 NotificationBanner is available under the MIT license. See the LICENSE file for more info.
-

@@ -25,7 +25,7 @@
       "~> 5.7.1"
     ],
     "MarqueeLabel": [
-      "~> 4.5.0"
+      "~> 4.5.3"
     ]
   },
   "resource_bundles": {

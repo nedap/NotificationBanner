@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1"),
-        .package(url: "https://github.com/cbpowell/MarqueeLabel", from: "4.5.0")
+        .package(url: "https://github.com/cbpowell/MarqueeLabel", exact: "4.5.3")
     ],
     targets: [
         .target(
